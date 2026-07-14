@@ -1,7 +1,18 @@
 # Security Intelligence
 
 ## Purpose
-Comprehensive security framework covering threat modeling, secure coding, vulnerability assessment, and compliance requirements.
+Comprehensive security framework covering threat modeling, secure coding, vulnerability assessment, compliance requirements, and predictive security analysis.
+
+## Module Contract
+| Attribute | Value |
+|-----------|-------|
+| **Inputs** | System design, code, requirements, compliance needs |
+| **Outputs** | Threat model, security assessment, secure coding guidance, compliance checklist |
+| **Responsibilities** | Threat modeling, secure coding, vulnerability assessment, compliance |
+| **Constraints** | Never approve known-vulnerable patterns; defense in depth always |
+| **Decision Rules** | When security conflicts with convenience, security wins |
+| **Validation Checklist** | STRIDE complete, checklists applied, compliance verified |
+| **Failure Handling** | If threat model incomplete, flag high-risk assumptions |
 
 ## Security Principles
 
@@ -103,6 +114,53 @@ ANALYZE_ATTACK_SURFACE(system):
 - [ ] Version pinning with update process
 - [ ] License compliance verified
 
+## Security Prediction (v3)
+
+### Predictive Threat Analysis
+
+Analyze code/design for likely vulnerabilities before deployment:
+
+```
+PREDICT_VULNERABILITIES(system):
+  1. Identify all entry points
+  2. Map data flows through the system
+  3. For each component:
+     - Assess attack surface
+     - Identify likely vulnerability classes
+     - Estimate exploit difficulty
+     - Estimate impact if exploited
+  4. Generate risk-ranked vulnerability predictions
+  5. Recommend preventive measures
+```
+
+### Vulnerability Prediction Matrix
+
+| Component Type | Likely Vulnerabilities | Prevention Priority |
+|----------------|----------------------|---------------------|
+| API endpoints | Injection, auth bypass, IDOR | Critical |
+| File upload | Path traversal, RCE, XSS | Critical |
+| Authentication | Brute force, session hijacking | Critical |
+| Database access | SQL injection, data exposure | Critical |
+| Client-side code | XSS, CSRF, sensitive data exposure | High |
+| External integrations | SSRF, credential exposure | High |
+| Background jobs | Privilege escalation, injection | Medium |
+
+### Security Smell Detection
+
+```
+DETECT_SECURITY_SMELLS(code):
+  - Hardcoded credentials or secrets
+  - Disabled security features (ssl_verify: false)
+  - Overly permissive CORS
+  - Missing authentication on endpoints
+  - Client-side secret storage
+  - Debug mode in production
+  - Verbose error messages
+  - Missing rate limiting
+  - Insecure deserialization
+  - Weak cryptographic algorithms
+```
+
 ## Vulnerability Categories
 
 ### OWASP Top 10 (2021)
@@ -124,7 +182,7 @@ ANALYZE_ATTACK_SURFACE(system):
 {
   "api_security": {
     "authentication": ["OAuth2", "JWT", "API Keys"],
-    "authorization": ["RBAC", "ABAC", " scopes"],
+    "authorization": ["RBAC", "ABAC", "scopes"],
     "input_validation": ["schema_validation", "type_checking", "rate_limiting"],
     "output_security": ["data_filtering", "error_sanitization", "HATEOAS"],
     "transport": ["TLS1.3", "certificate_pinning", "HSTS"],
@@ -194,6 +252,11 @@ RESPONSE_PLAN:
 |--------|------|------------|--------|
 | ...    | ...  | ...        | ...    |
 
+### Predicted Vulnerabilities (v3)
+| Component | Likely Vuln | Likelihood | Impact | Prevention |
+|-----------|-------------|------------|--------|------------|
+| ...       | ...         | ...        | ...    | ...        |
+
 ### Secure Coding Checklist
 - [ ] Input validation
 - [ ] Authentication
@@ -213,3 +276,15 @@ RESPONSE_PLAN:
 |------|----------|----------------|
 | ...  | ...      | ...            |
 ```
+
+## Validation Checklist
+
+- [ ] STRIDE analysis complete for all components
+- [ ] Attack surface documented
+- [ ] Secure coding checklist applied
+- [ ] Security smells detected and addressed
+- [ ] Predicted vulnerabilities documented (v3)
+- [ ] Compliance requirements verified
+- [ ] Security headers specified
+- [ ] Incident response plan referenced
+- [ ] OWASP Top 10 addressed

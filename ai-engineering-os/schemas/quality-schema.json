@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QualityScore",
+  "description": "Schema for quality scoring output",
+  "type": "object",
+  "required": ["overall_score", "dimensions"],
+  "properties": {
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "grade": { "type": "string", "enum": ["A", "B", "C", "D", "F"] },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "correctness": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "check": { "type": "string" },
+                  "passed": { "type": "boolean" },
+                  "notes": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "security": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "blocking_issues": { "type": "array", "items": { "type": "string" } },
+            "warnings": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "maintainability": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "complexity_score": { "type": "number" },
+            "duplication_percentage": { "type": "number" }
+          }
+        },
+        "performance": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "bottlenecks": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "completeness": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "requirements_met": { "type": "number" },
+            "requirements_total": { "type": "number" }
+          }
+        }
+      }
+    },
+    "improvement_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+          "recommendation": { "type": "string" },
+          "expected_impact": { "type": "string" }
+        }
+      }
+    }
+  }
+}

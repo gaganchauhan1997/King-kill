@@ -3,6 +3,17 @@
 ## Purpose
 Comprehensive architectural pattern library with selection guidance, tradeoff analysis, and implementation strategies.
 
+## Module Contract
+| Attribute | Value |
+|-----------|-------|
+| **Inputs** | Requirements, constraints, team context, scalability needs |
+| **Outputs** | Architecture recommendation, pattern selection, tradeoff analysis |
+| **Responsibilities** | Pattern catalog, selection guidance, tradeoff analysis |
+| **Constraints** | No pattern is universally best; context always matters |
+| **Decision Rules** | Prefer simpler patterns unless complexity justified |
+| **Validation Checklist** | Requirements traced, patterns matched, tradeoffs explicit |
+| **Failure Handling** | If no pattern fits, recommend custom hybrid |
+
 ## Architectural Styles
 
 ### Monolithic

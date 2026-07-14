@@ -3,6 +3,17 @@
 ## Purpose
 Comprehensive DevOps framework covering CI/CD, infrastructure, observability, and operational excellence.
 
+## Module Contract
+| Attribute | Value |
+|-----------|-------|
+| **Inputs** | System architecture, deployment requirements, operational constraints |
+| **Outputs** | CI/CD pipeline, infrastructure config, observability setup, runbooks |
+| **Responsibilities** | Pipeline design, infrastructure, observability, SRE practices |
+| **Constraints** | Security gates are blocking; never bypass for speed |
+| **Decision Rules** | Canary + feature flags as default deployment strategy |
+| **Validation Checklist** | All stages have gates, rollback tested, monitoring configured |
+| **Failure Handling** | If deployment fails, automatic rollback or immediate human alert |
+
 ## CI/CD Pipeline
 
 ### Pipeline Stages
