@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EngineeringMemory",
+  "description": "Schema for engineering memory entries",
+  "type": "object",
+  "required": ["memory_type", "timestamp"],
+  "properties": {
+    "memory_type": {
+      "type": "string",
+      "enum": ["decision", "pattern", "error", "learning"]
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "source": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 1, "maximum": 5 },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "decision_id": { "type": "string" },
+        "context": { "type": "string" },
+        "options_considered": { "type": "array", "items": { "type": "string" } },
+        "selected_option": { "type": "string" },
+        "rationale": { "type": "string" },
+        "outcome": { "type": "string" },
+        "lessons_learned": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "properties": {
+        "pattern_name": { "type": "string" },
+        "context": { "type": "string" },
+        "effectiveness": { "type": "string", "enum": ["high", "medium", "low"] },
+        "applicability_conditions": { "type": "array", "items": { "type": "string" } },
+        "caveats": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "error_type": { "type": "string" },
+        "description": { "type": "string" },
+        "root_cause": { "type": "string" },
+        "resolution": { "type": "string" },
+        "prevention": { "type": "string" },
+        "severity": { "type": "string", "enum": ["critical", "major", "minor"] }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "properties": {
+        "insight": { "type": "string" },
+        "context": { "type": "string" },
+        "verification_status": { "type": "string", "enum": ["verified", "unverified", "deprecated"] }
+      }
+    }
+  }
+}

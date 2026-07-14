@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ArchitectureModel",
+  "description": "Schema for system architecture definitions",
+  "type": "object",
+  "required": ["system_name", "style", "components"],
+  "properties": {
+    "system_name": { "type": "string" },
+    "style": {
+      "type": "string",
+      "enum": ["monolithic", "microservices", "modular-monolith", "serverless", "event-driven"]
+    },
+    "version": { "type": "string" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string", "enum": ["service", "database", "cache", "queue", "gateway", "client", "external"] },
+          "responsibilities": { "type": "array", "items": { "type": "string" } },
+          "dependencies": { "type": "array", "items": { "type": "string" } },
+          "technology": { "type": "string" },
+          "interfaces": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "protocol": { "type": "string" },
+                "format": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "data_flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "data": { "type": "string" },
+          "protocol": { "type": "string" }
+        }
+      }
+    },
+    "quality_attributes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+          "target": { "type": "string" },
+          "measurement": { "type": "string" }
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
