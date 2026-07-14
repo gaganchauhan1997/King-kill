@@ -1,7 +1,18 @@
 # Performance Intelligence
 
 ## Purpose
-Systematic performance engineering: measurement, optimization, benchmarking, and capacity planning.
+Systematic performance engineering: measurement, optimization, benchmarking, capacity planning, and predictive performance analysis.
+
+## Module Contract
+| Attribute | Value |
+|-----------|-------|
+| **Inputs** | System design, code, performance requirements, resource constraints |
+| **Outputs** | Performance assessment, optimization plan, capacity projections |
+| **Responsibilities** | Measurement, optimization, benchmarking, prediction, capacity planning |
+| **Constraints** | No optimization without measurement; no premature optimization |
+| **Decision Rules** | Measure first, optimize highest-impact bottlenecks |
+| **Validation Checklist** | Baseline established, bottlenecks identified, optimizations measured |
+| **Failure Handling** | If measurement not possible, estimate with confidence bounds |
 
 ## Performance Measurement
 
@@ -59,6 +70,55 @@ PROFILE_SYSTEM:
   6. Analyze database (slow query log, execution plans)
   7. Correlate findings
   8. Prioritize by impact × effort
+```
+
+## Performance Prediction (v3)
+
+### Predictive Performance Modeling
+
+Estimate performance before implementation:
+
+```
+PREDICT_PERFORMANCE(design):
+  1. Identify critical path
+  2. Estimate latency per component:
+     - Database: query count × estimated query time
+     - Network: round trips × latency
+     - Processing: algorithm complexity × data size
+     - External: API call count × API latency
+  3. Sum critical path latency
+  4. Estimate throughput: 1 / total_latency × parallelism
+  5. Identify likely bottlenecks
+  6. Recommend optimizations before coding
+```
+
+### Performance Estimation Framework
+
+| Component | Base Latency | Scaling Factor | Estimation Method |
+|-----------|-------------|----------------|-------------------|
+| DB read (indexed) | 1-5ms | × query count | Query plan estimate |
+| DB write | 5-20ms | × write count | Transaction complexity |
+| DB scan (unindexed) | 100ms-10s | × table size | Table size × row time |
+| Cache hit | 0.1-1ms | × hit count | Network + deserialize |
+| Cache miss | DB read + 1ms | × miss rate | DB time + overhead |
+| HTTP call (internal) | 5-20ms | × call count | Network latency |
+| HTTP call (external) | 50-500ms | × call count | External API SLA |
+| Serialization | 0.1-10ms | × payload size | Payload size / throughput |
+
+### Capacity Prediction
+
+```
+PREDICT_CAPACITY(requirements):
+  1. Define peak traffic: requests/second
+  2. Estimate resource per request:
+     - CPU: ms/request
+     - Memory: MB/request
+     - DB: queries/request
+     - Network: KB/request
+  3. Calculate instance requirements:
+     instances = peak_traffic × resource_per_request / instance_capacity
+  4. Apply safety factor (1.5x)
+  5. Estimate cost
 ```
 
 ## Optimization Strategies
@@ -202,7 +262,7 @@ Where:
 - 6 months: [X]% increase
 - 12 months: [X]% increase
 
-### Required Resources
+### Predicted Requirements (v3)
 | Component | Current | 3mo | 6mo | 12mo |
 |-----------|---------|-----|-----|------|
 | App servers | ...     | ... | ... | ...  |
@@ -230,3 +290,4 @@ Where:
 - [ ] No regressions in other metrics
 - [ ] Monitoring in place for ongoing tracking
 - [ ] Alerting thresholds configured
+- [ ] Performance predicted for changes (v3)
